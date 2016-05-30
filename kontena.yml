@@ -1,0 +1,24 @@
+mysql:
+  image: mysql:5
+  stateful: true
+  environment:
+    - MYSQL_ROOT_PASSWORD=pass
+  log_driver: syslog
+  log_opt:
+    tag: '{{.Name}}'
+
+app:
+  image: bibendi/semaphore:latest
+  stateful: true
+  command: semaphore -setup
+  environment:
+    - KONTENA_LB_INTERNAL_PORT=3000
+  secrets:
+    - secret: SEMAPHORE_LB_HOSTS
+      name: KONTENA_LB_VIRTUAL_HOSTS
+      type: env
+  external_links:
+    - lb
+  log_driver: syslog
+  log_opt:
+    tag: '{{.Name}}'
