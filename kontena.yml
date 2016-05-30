@@ -10,7 +10,7 @@ mysql:
 app:
   image: bibendi/semaphore:latest
   stateful: true
-  command: semaphore -setup
+  command: /usr/bin/semaphore -setup
   environment:
     - KONTENA_LB_INTERNAL_PORT=3000
   secrets:
